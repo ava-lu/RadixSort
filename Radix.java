@@ -1,6 +1,6 @@
 public class Radix {
   public static int nth(int n, int col) {
-    int temp = Math.abs(n / (int)Math.pow(10, col));
+    int temp = n / (int)Math.pow(10, col);
     return (temp % 10);
   }
   public static int length(int n) {
@@ -27,10 +27,30 @@ public class Radix {
         current = data.remove(0);
         int m = nth(current, digit);
         buckets[m].add(current);
-        if (length(current)>current+1) goon=true;
+        if (length(current)>digit+1) goon=true;
       }
       digit++;
+      merge(data, buckets);
     }
-    merge(data, buckets);
+  }
+  public static void radixSort(SortableLinkedList data) {
+    SortableLinkedList[] buckets = new SortableLinkedList[19];
+    for (int i=0; i<=18; i++) {
+      buckets[i] = new SortableLinkedList();
+    }
+    int digit = 0;
+    boolean goon = true;
+    int current = 0;
+    while (goon==true) {
+      goon = false;
+      while (data.size()>0) {
+        current = data.remove(0);
+        int m = nth(current, digit)+9;
+        buckets[m].add(current);
+        if (length(current)>digit+1) goon=true;
+      }
+      digit++;
+      merge(data, buckets);
+    }
   }
 }
