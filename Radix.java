@@ -6,4 +6,10 @@ public class Radix {
   public static int length(int n) {
     return String.valueOf(n).length();
   }
+  public static void merge(SortableLinkedList original,
+  SortableLinkedList[] buckets) {
+    for (int i=0; i<buckets.length; i++) {
+      original.extend(buckets[i]);
+    }
+  }
 }
